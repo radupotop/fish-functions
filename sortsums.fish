@@ -1,3 +1,4 @@
-function sortsums -a file opts --description "Sort file in place by the second column (e.g. for checksums files)"
+function sortsums -a file --description "Sort file in place by the second column (e.g. for checksums files)"
+    set -l opts $argv[2..-1]
     sort -k2 $opts $file -o $file
 end
