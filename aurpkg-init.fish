@@ -9,6 +9,10 @@ function aurpkg-init --description 'Init pkgbuild with split git repo' -a repo_n
         return 2
     end
 
+    if string match -q -- "$PKGBUILDS_AUR_URI/*" "$repo_name"
+        set repo_name (string replace -- "$PKGBUILDS_AUR_URI/" "" -- "$repo_name")
+    end
+
     set -l repo_list "$PKGBUILDS_REPO_ROOT/repo.list"
     set -l pkg (string replace -r '\.git$' '' -- "$repo_name")
 
@@ -20,6 +24,8 @@ function aurpkg-init --description 'Init pkgbuild with split git repo' -a repo_n
         echo "pkg-init: $pkg or $pkg.git already exists" >&2
         return 1
     end
+
+    echo "# Init pkg:" "$pkg" "$aur_uri" "$git_dir" "$work_tree"
 
     command git clone "$aur_uri" --separate-git-dir "$git_dir" "$work_tree"; or return 1
     command rm -- "$work_tree/.git"; or return 1
