@@ -10,7 +10,7 @@ function aurpkg-init --description 'Init pkgbuild with split git repo' -a repo_n
     end
 
     if string match -q -- "$PKGBUILDS_AUR_URI/*" "$repo_name"
-        set repo_name (string replace -- "$PKGBUILDS_AUR_URI/" "" -- "$repo_name")
+        set repo_name (string replace "$PKGBUILDS_AUR_URI/" "" -- "$repo_name")
     end
 
     set -l repo_list "$PKGBUILDS_REPO_ROOT/repo.list"
@@ -25,7 +25,7 @@ function aurpkg-init --description 'Init pkgbuild with split git repo' -a repo_n
         return 1
     end
 
-    echo "# Init pkg:" "$pkg" "$aur_uri" "$git_dir" "$work_tree"
+    echo -e "# Init pkg: $pkg\n# $aur_uri\n# $git_dir\n# $work_tree"
 
     command git clone "$aur_uri" --separate-git-dir "$git_dir" "$work_tree"; or return 1
     command rm -- "$work_tree/.git"; or return 1

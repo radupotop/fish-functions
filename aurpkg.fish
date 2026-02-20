@@ -34,6 +34,6 @@ function aurpkg --description 'Manage pkgbuild with split git repo'
         return 1
     end
 
-    echo "# pkg:" $pkg_name $work_tree $git_dir
+    echo "# pkg: $pkg_name $git_dir $work_tree"
     command git --git-dir="$git_dir" --work-tree="$work_tree" $argv
 end
