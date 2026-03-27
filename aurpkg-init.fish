@@ -34,5 +34,6 @@ function aurpkg-init --description 'Init pkgbuild with split git repo' -a repo_n
         echo "$pkg" > "$repo_list"; or return 1
     else if not command grep -Fxq -- "$pkg" "$repo_list"
         echo "$pkg" >> "$repo_list"; or return 1
+        command sort -o "$repo_list" "$repo_list"; or return 1
     end
 end
